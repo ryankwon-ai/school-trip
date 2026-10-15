@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>설레는 제주 수학여행 가이드 & 활동기록장 🍊✈️</title>
+  <!-- Google Fonts: Prettiest Korean Font Noto Sans KR & Gaegu (handwriting for trip feel) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- html2pdf.js for exporting activity sheet to PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== 여행 테마 배경 장식 데코 ===== -->
+  <div class="bg-decorations" aria-hidden="true">
+    <div class="cloud cloud-1">☁️</div>
+    <div class="cloud cloud-2">☁️</div>
+    <div class="floating-item item-plane">✈️</div>
+    <div class="floating-item item-orange">🍊</div>
+    <div class="floating-item item-palm">🌴</div>
+    <div class="floating-item item-wave">🌊</div>
+  </div>
+
+  <!-- ===== 메인 히어로 헤더 ===== -->
+  <header class="trip-header">
+    <div class="header-content">
+      <div class="trip-badge">
+        <span class="badge-dot"></span> 2026 JEJU FIELD TRIP • 3박 4일
+      </div>
+      <h1 class="trip-title">
+        설레는 우리들의 <span class="highlight">제주 수학여행</span>
+        <span class="title-emoji">🍊🏝️</span>
+      </h1>
+      <p class="trip-desc">
+        10월 26일(월) ~ 10월 29일(목) • 안전하고 즐거운 추억 만들기
+      </p>
+
+      <!-- 퀵 네비게이션 바로가기 칩 -->
+      <div class="quick-nav">
+        <button class="nav-chip" onclick="quickOpen(9)">
+          <span class="chip-icon">📝</span>
+          <span class="chip-text">나의 활동지 작성</span>
+          <span class="chip-tag">기록/PDF</span>
+        </button>
+        <button class="nav-chip" onclick="quickOpen(3)">
+          <span class="chip-icon">⏱️</span>
+          <span class="chip-text">세부 일정표</span>
+        </button>
+        <button class="nav-chip" onclick="quickOpen(4)">
+          <span class="chip-icon">🍱</span>
+          <span class="chip-text">맛있는 식단표</span>
+        </button>
+        <button class="nav-chip" onclick="quickOpen(8)">
+          <span class="chip-icon">🦺</span>
+          <span class="chip-text">안전교육 목차</span>
+        </button>
+        <button class="nav-chip" onclick="quickOpen(10)">
+          <span class="chip-icon">🗺️</span>
+          <span class="chip-text">장소 안내 & 링크</span>
+        </button>
+      </div>
+
+      <!-- 카테고리 탭 필터 -->
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">전체 메뉴 보기</button>
+        <button class="filter-btn" data-filter="schedule">📅 일정 & 식사</button>
+        <button class="filter-btn" data-filter="place">🏝️ 탐방 장소</button>
+        <button class="filter-btn" data-filter="safety">🛡️ 안전 & 준비물</button>
+        <button class="filter-btn" data-filter="record">✏️ 학생 활동지</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== 11개 섹션 카드 그리드 컨테이너 ===== -->
+  <main class="container">
+    <div class="section-grid" id="sectionGrid">
+      <!-- JavaScript에서 동적으로 카드 렌더링 -->
+    </div>
+  </main>
+
+  <!-- ===== 모바일 하단 퀵 액션 바 ===== -->
+  <aside class="bottom-bar">
+    <button class="bar-btn" onclick="scrollToTop()">
+      <span class="bar-icon">🏠</span>
+      <span class="bar-label">홈</span>
+    </button>
+    <button class="bar-btn" onclick="quickOpen(3)">
+      <span class="bar-icon">📅</span>
+      <span class="bar-label">일정</span>
+    </button>
+    <button class="bar-btn highlight-btn" onclick="quickOpen(9)">
+      <span class="bar-icon">✏️</span>
+      <span class="bar-label">활동지</span>
+    </button>
+    <button class="bar-btn" onclick="quickOpen(10)">
+      <span class="bar-icon">🗺️</span>
+      <span class="bar-label">관광지</span>
+    </button>
+    <button class="bar-btn" onclick="quickOpen(8)">
+      <span class="bar-icon">🦺</span>
+      <span class="bar-label">안전교육</span>
+    </button>
+  </aside>
+
+  <!-- ===== 상세 내용 모달 팝업 ===== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+    <div class="modal-container" id="modalContainer" role="dialog" aria-modal="true">
+      <!-- 모달 상단 헤더 바 -->
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-category" id="modalCategory">CATEGORY</span>
+          <h2 class="modal-title" id="modalTitle">섹션 제목</h2>
+        </div>
+        <div class="modal-actions">
+          <a class="btn-pdf-link" id="btnPdfLink" href="#" target="_blank" rel="noopener noreferrer" title="새 창에서 원본 PDF 보기">
+            📄 원본 열기 ↗
+          </a>
+          <button class="btn-pdf-toggle" id="btnPdfToggle" onclick="togglePdfViewer()" title="화면 내 미리보기 토글">
+            미리보기
+          </button>
+          <button class="btn-modal-close" onclick="closeModal()" aria-label="닫기">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- 모달 메인 본문 콘텐츠 -->
+      <div class="modal-body" id="modalBody">
+        <!-- 각 섹션별 가독성 높은 맞춤형 UI가 주입됨 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 토스트 알림 메시지 -->
+  <div class="toast-message" id="toastMessage"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
